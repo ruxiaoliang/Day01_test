@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd 
+       http://www.springframework.org/schema/context 
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- 开启组件扫描 : 扫描指定的包,加载这些包下的注解 -->
+    <context:component-scan base-package="com.ithaima.dao"/>
+
+
+
+    <!-- id: 容器中的唯一标识  class:被创建的类的全限定名(包名+类名) -->
+    <bean id="accountService01" class="com.ithaima.service.impl.AccountServiceImpl"/>
+
+    <bean id="accountService02" class="factory.StaticMethodFactory" factory-method="createAccountService"/>
+
+    <bean id="instanceMethodFactory" class="factory.InstanceMethodFactory"/>
+    <bean id="accountService03" factory-bean="instanceMethodFactory" factory-method="createAccountService"/>
+
+    <bean id="accountService04" scope="prototype" class="com.ithaima.service.impl.AccountServiceImpl"/>
+
+    <bean id="accountService05" init-method="initMethod" destroy-method="destroyMethod" class="com.ithaima.service.impl.AccountServiceImpl"/>
+
+    <bean id="accountService06" scope="prototype" init-method="initMethod" destroy-method="destroyMethod" class="com.ithaima.service.impl.AccountServiceImpl"/>
+
+    <bean id="userMapper" class="com.ithaima.dao.impl.UserMapperImpl"/>
+
+    <bean id="userService" class="com.ithaima.service.impl.UserServiceImpl">
+        <property name="username" value="云无月"/>
+        <property name="age" value="500"/>
+
+        <!--注入类对象-->
+        <property name="com.ithaima.dao" ref="userMapper"/>
+
+        <property name="arr">
+            <array>
+                <value>成宝拉</value>
+                <value>成德善</value>
+            </array>
+        </property>
+
+        <property name="list">
+            <list>
+                <value>金正峰</value>
+                <value>金正焕</value>
+            </list>
+        </property>
+
+        <property name="map">
+            <map>
+                <entry key="月" value="柳梢头"/>
+            </map>
+        </property>
+
+        <property name="prop">
+            <props>
+                <prop key="人">黄昏后</prop>
+            </props>
+        </property>
+    </bean>
+</beans>

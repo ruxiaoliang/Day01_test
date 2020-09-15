@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-com.ithaima.config.dtd">
+<!-- 配置 -->
+<configuration>
+    <properties resource="jdbc.properties"/>
+    <!-- 环境 -->
+    <typeAliases>
+        <package name="com.ithaima.pojo"/>
+    </typeAliases>
+    <environments default="development">
+        <!-- 配置连接池和连接的数据库信息 -->
+        <environment id="development">
+            <!-- 使用JDBC的事务管理 -->
+            <transactionManager type="JDBC"/>
+            <!-- 配置是否使用Mybatis提供的连接池 -->
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+  <!--   配置sql映射文件的路径 -->
+    <mappers>
+        <package name="com.ithaima.dao"/>
+        <package name="com.ithaima.vo"/>
+    </mappers>
+</configuration>
